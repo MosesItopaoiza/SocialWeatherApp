@@ -1,6 +1,6 @@
-# WeatherApp 🌦️
+# Social WeatherApp 🌦️
 
-A responsive weather application that displays real-time weather data for any city using the OpenWeatherMap API. Built with HTML, CSS, and JavaScript, this app showcases clean UI design and API integration skills.
+A responsive Social weather application that displays real-time weather data for any city using the OpenWeatherMap API. Built with HTML, CSS, and JavaScript, this app showcases clean UI design and API integration skills.
 
 
 ## 🚀 Features
