@@ -1,5 +1,18 @@
+// script.js
+import { auth, db } from './firebase.js';
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  signOut
+} from "firebase/auth";
+import {
+  collection,
+  addDoc,
+  serverTimestamp
+} from "firebase/firestore";
+
 // Current weather
-async function getWeather() {
+export async function getWeather() {
   const city = document.getElementById("cityInput").value;
   const apiKey = "b6f90e9123d23568e92056abe3080401";
   const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`;
@@ -18,12 +31,12 @@ async function getWeather() {
   } catch (error) {
     document.getElementById("weatherResult").innerHTML =
       "<p>⚠️ Error fetching weather data.</p>";
-    console.error(error);
+    console.error("Weather API error:", error);
   }
 }
 
 // 5-day forecast
-async function getFiveDayForecast() {
+export async function getFiveDayForecast() {
   const city = document.getElementById("cityInput").value;
   const apiKey = "b6f90e9123d23568e92056abe3080401";
   const url = `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`;
@@ -46,19 +59,72 @@ async function getFiveDayForecast() {
   } catch (error) {
     document.getElementById("forecastResult").innerHTML =
       "<p>⚠️ Error fetching forecast data.</p>";
-    console.error(error);
+    console.error("Forecast API error:", error);
   }
 }
 
-// Post status
-function postStatus() {
-  const status = document.getElementById("statusInput").value;
+// Post status to Firestore
+export function postStatus() {
+  const status = document.getElementById("statusInput").value.trim();
   const city = document.getElementById("cityInput").value;
-  const statusBoard = document.getElementById("statusBoard");
+  const user = auth.currentUser;
 
-  if (status.trim() !== "") {
-    const post = `<p><strong>${city}:</strong> ${status}</p>`;
-    statusBoard.innerHTML += post;
-    document.getElementById("statusInput").value = "";
+  if (!status) {
+    alert("Please enter a status before posting.");
+    return;
   }
+
+  if (user) {
+    addDoc(collection(db, "posts"), {
+      uid: user.uid,
+      email: user.email,
+      city: city,
+      status: status,
+      timestamp: serverTimestamp()
+    }).then(() => {
+      alert("✅ Status posted!");
+      document.getElementById("statusInput").value = "";
+    }).catch(error => {
+      console.error("Firestore error:", error);
+      alert("❌ Failed to post status.");
+    });
+  } else {
+    alert("🔐 Please log in to post.");
+  }
+}
+
+// Firebase Auth: Sign Up
+export function signup() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  createUserWithEmailAndPassword(auth, email, password)
+    .then(() => alert("✅ Signup successful"))
+    .catch(error => {
+      console.error("Signup error:", error);
+      alert(`❌ ${error.message}`);
+    });
+}
+
+// Firebase Auth: Login
+export function login() {
+  const email = document.getElementById("email").value;
+  const password = document.getElementById("password").value;
+
+  signInWithEmailAndPassword(auth, email, password)
+    .then(() => alert("✅ Login successful"))
+    .catch(error => {
+      console.error("Login error:", error);
+      alert(`❌ ${error.message}`);
+    });
+}
+
+// Firebase Auth: Logout
+export function logout() {
+  signOut(auth)
+    .then(() => alert("👋 Logged out"))
+    .catch(error => {
+      console.error("Logout error:", error);
+      alert(`❌ ${error.message}`);
+    });
 }
