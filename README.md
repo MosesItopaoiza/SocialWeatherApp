@@ -28,5 +28,5 @@ A responsive Social weather application that displays real-time weather data for
 This project is licensed under the MIT License.
 
 ## 👩‍💻 Author
-Chioma Moses – [@MosesItopaoiza](https://github.com/MosesItopaoiza)
+Moses Itopaoiza – [@MosesItopaoiza](https://github.com/MosesItopaoiza)
 
