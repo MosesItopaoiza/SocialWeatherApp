@@ -1,15 +1,31 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Weather App</title>
-  <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Social Weather App</title>
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Weather App</h1>
-  <input type="text" id="cityInput" placeholder="Enter city">
-  <button onclick="getWeather()">Get Weather</button>
-  <div id="weatherResult"></div>
+  <h1>🌍 Social Weather App</h1>
+
+  <section class="weather-section">
+    <input type="text" id="cityInput" placeholder="Enter city name" />
+    <div class="button-group">
+      <button onclick="getWeather()">Get Current Weather</button>
+      <button onclick="getFiveDayForecast()">Get 5-Day Forecast</button>
+    </div>
+    <div id="weatherResult"></div>
+    <div id="forecastResult"></div>
+  </section>
+
+  <section class="status-section">
+    <h2>📝 Share Your Weather Status</h2>
+    <textarea id="statusInput" placeholder="What's the weather like for you?"></textarea>
+    <button onclick="postStatus()">Post Status</button>
+    <div id="statusBoard"></div>
+  </section>
+
   <script src="script.js"></script>
 </body>
 </html>
