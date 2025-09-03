@@ -1,76 +1,95 @@
+/* Base reset & variables */
+:root {
+  --bg: #0b1020;
+  --panel: #111833;
+  --text: #e8ecf3;
+  --muted: #a9b2c7;
+  --accent: #4f8cff;
+  --radius: 14px;
+  --gap: 1rem;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
 body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(to right, #83a4d4, #b6fbff);
-  margin: 0;
-  padding: 20px;
-  color: #333;
+  font-family: system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.5;
 }
 
-h1 {
-  text-align: center;
-  font-size: 2.5em;
-  margin-bottom: 30px;
-  color: #2c3e50;
+img { max-width: 100%; height: auto; }
+
+/* Layout */
+.app {
+  display: grid;
+  gap: var(--gap);
+  padding: var(--gap);
 }
 
-.weather-section, .status-section {
-  max-width: 600px;
-  margin: auto;
-  background-color: rgba(255, 255, 255, 0.95);
-  padding: 20px;
-  border-radius: 12px;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-  margin-bottom: 30px;
+.header {
+  display: grid;
+  gap: var(--gap);
+  padding: var(--gap);
 }
 
-input[type="text"], textarea {
-  width: 100%;
-  padding: 12px;
-  margin: 10px 0;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 1em;
-}
-
-.button-group {
+.brand {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--gap);
 }
 
-button {
-  padding: 10px 20px;
-  background-color: #3498db;
-  color: white;
+.brand__logo {
+  width: 40px;
+  height: 40px;
+  background: var(--accent);
+  border-radius: var(--radius);
+}
+
+.search {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: var(--gap);
+}
+
+.search__input {
+  padding: 0.8rem;
+  border-radius: var(--radius);
   border: none;
-  border-radius: 8px;
+}
+
+.search__btn {
+  padding: 0.8rem 1rem;
+  border-radius: var(--radius);
+  border: none;
+  background: var(--accent);
+  color: white;
   cursor: pointer;
-  font-size: 1em;
-  transition: background-color 0.3s ease;
 }
 
-button:hover {
-  background-color: #2980b9;
+/* Weather cards */
+.grid {
+  display: grid;
+  gap: var(--gap);
 }
 
-#weatherResult, #forecastResult, #statusBoard {
-  margin-top: 20px;
+.weather-card {
+  background: var(--panel);
+  padding: var(--gap);
+  border-radius: var(--radius);
 }
 
-#forecastResult p, #statusBoard p {
-  margin: 8px 0;
-  padding: 8px;
-  background-color: #ecf0f1;
-  border-radius: 6px;
+/* Responsive breakpoints */
+@media (min-width: 768px) {
+  .app {
+    grid-template-columns: 2fr 1fr;
+  }
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
 }
 
-textarea {
-  height: 100px;
-  resize: vertical;
-}
-
-@media (max-width: 600px) {
-  .button-group {
-    flex-direction: column;
+@media (min-width: 1024px) {
+  .grid {
+    grid-template-columns: repeat(3, 1fr);
   }
 }
