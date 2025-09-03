@@ -2,79 +2,35 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Social Weather App</title>
   <link rel="stylesheet" href="style.css" />
-
-  <!-- Firebase SDKs (Correct Order) -->
-  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-auth.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/10.5.0/firebase-firestore.js"></script>
-
-  <!-- Firebase Initialization -->
-  <script>
-    const firebaseConfig = {
-      apiKey: "AIzaSyDQjHsBE-AmwUiN3EQVxt5S_3sWRkA1Qog",
-      authDomain: "social-weather-app.firebaseapp.com",
-      projectId: "social-weather-app",
-      storageBucket: "social-weather-app.appspot.com",
-      messagingSenderId: "358345632198",
-      appId: "1:358345632198:web:ab08cd93514747de86aac7",
-      measurementId: "G-GGHWX4PTHH"
-    };
-    firebase.initializeApp(firebaseConfig);
-    window.auth = firebase.auth();
-    window.db = firebase.firestore;
-  </script>
 </head>
 <body>
-  <header>
-    <h1>🌍 Social Weather App</h1>
+  <header class="header">
+    <div class="brand">
+      <div class="brand__logo"></div>
+      <h1 class="brand__title">Social Weather</h1>
+    </div>
+    <form class="search" id="searchForm">
+      <input class="search__input" id="cityInput" placeholder="Search city..." />
+      <button class="search__btn" type="submit">Search</button>
+    </form>
   </header>
 
-  <main>
-    <!-- Weather Section -->
-    <section class="weather-section">
-      <h2>🌦️ Check the Weather</h2>
-      <label for="cityInput">City Name:</label>
-      <input type="text" id="cityInput" placeholder="Enter city name" />
-      <div class="button-group">
-        <button onclick="getWeather()">Get Current Weather</button>
-        <button onclick="getFiveDayForecast()">Get 5-Day Forecast</button>
-      </div>
-      <div id="weatherResult"></div>
-      <div id="forecastResult"></div>
+  <main class="app">
+    <section class="main">
+      <div class="grid" id="results"></div>
     </section>
-
-    <!-- Status Section -->
-    <section class="status-section">
-      <h2>📝 Share Your Weather Status</h2>
-      <label for="statusInput">Your Status:</label>
-      <textarea id="statusInput" placeholder="What's the weather like for you?"></textarea>
-      <button onclick="postStatus()">Post Status</button>
-      <div id="statusBoard"></div>
-    </section>
-
-    <!-- Authentication Section -->
-    <section class="auth-section">
-      <h2>🔐 User Login</h2>
-      <label for="email">Email:</label>
-      <input type="email" id="email" placeholder="Email" />
-      <label for="password">Password:</label>
-      <input type="password" id="password" placeholder="Password" />
-      <div class="button-group">
-        <button onclick="signup()">Sign Up</button>
-        <button onclick="login()">Login</button>
-        <button onclick="logout()">Logout</button>
-      </div>
-    </section>
+    <aside class="sidebar">
+      <section class="favorites">
+        <h2>Recent</h2>
+        <div class="favorites__list" id="recentList"></div>
+      </section>
+    </aside>
   </main>
 
-  <footer>
-    <p>© 2025 Social Weather App. Built with ❤️ by Moses Itopaoiza.</p>
-  </footer>
-
-  <!-- App Logic -->
-  <script src="script.js" defer></script>
+  <script src="firebase.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
